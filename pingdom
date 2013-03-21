@@ -1,0 +1,38 @@
+#!/usr/bin/python
+import requests, json, cgi
+from requests.auth import HTTPBasicAuth
+
+headers = {'App-Key': 'CHANGEME'}
+
+r = requests.get('https://api.pingdom.com/api/2.0/checks', headers=headers, auth=HTTPBasicAuth('USERNAME', 'PASSWORD'))
+data=r.json
+mychecks=['Home Page', 'Listings Page', 'Add Posting', 'Mobile Website', 'Search', 'Location Homepage (Belfast)', 'Replies', 'Seller Login', 'Popular Searches', 'View Item Page', 'Pets Landing Page', 'Blogs' ]
+
+print 'Content-type: text/html\n\n'
+print '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PingdomDash</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="hero-unit">
+  <h1>My Pingdom</h1>
+</div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+<ul>'''
+
+for items in data['checks']:
+	if items['status'] == 'down':
+		alert = '<div class="alert alert-failure">'
+	if items['status'] == 'up':
+                alert = '<div class="alert alert-success">'
+	if items['name'] in mychecks:
+		myname = items['name']
+		mytime = items['lastresponsetime']
+		print '%s %s %sms</div>' % (alert, myname, mytime)
+print '''<ul><hr>'''
