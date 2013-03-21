@@ -1,0 +1,38 @@
+#!/usr/bin/python
+import requests, json, cgi
+from requests.auth import HTTPBasicAuth
+
+headers = {'App-Key': 'CHANGEME'}
+r = requests.get('https://api.pingdom.com/api/2.0/checks', headers=headers, auth=HTTPBasicAuth('USERNAME', 'PASSWORD'))
+data=r.json
+print 'Content-type: text/html\n\n'
+print '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PingdomDash</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<script src="justgage.1.0.1.min.js"></script>
+<script src="raphael.2.1.0.min.js"></script>
+</head>
+<body>
+<div class="hero-unit">
+  <h1>Gumtree UK Pingdom</h1>
+</div>
+<div id="bigfella" style="width:400px; height:320px"></div>
+
+'''
+
+for items in data['checks']:
+		myname = items['name']
+		mytime = items['lastresponsetime']
+		print'''<script>
+		var g = new JustGage({
+		id: "bigfella",'''
+		print 'value: %s,' % mytime 
+		print '''min: 0,
+		max: 1000,'''
+		print 'title: "%s"' % myname
+		print'''}); 
+		</script>'''
