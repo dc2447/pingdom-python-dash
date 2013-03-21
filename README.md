@@ -1,13 +1,12 @@
 pingdom-python-dash
 ===================
 
-Simple Pingdom Dashboard in less than 30 lines
+Simple Pingdom Dashboarids in less than 30 lines of python
 
-Designed to be run from cron every minute and output to a html fragment
+* screenshots
 
-* screenshot
-
-![Alt text](http://i.imgur.com/0IAdG.png "Pingdom Dashboard")
+![Alt text](http://i.imgur.com/gHjXSnF.png "Pingdom Dashboard")
+![Alt text](http://i.imgur.com/hjgcLGf.png "Pingdom Dashboard")
 
 
 
